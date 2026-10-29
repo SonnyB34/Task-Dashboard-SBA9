@@ -54,8 +54,35 @@ export default function TaskForm({ editingTask, onSubmit, onCancel }: TaskFormPr
 
         <label>
             Description
-            <textarea />
+            <textarea name="description" value={form.description} onChange={handleChange} rows={3} placeholder="Optional details"/>
+            <span className="hint">{form.description.length}/200</span>
+            {errors.description && <span className="error" role="alert">{errors.description}</span>}
         </label>
+
+        <div className="row" >
+            <label>
+                Priority
+                <select name="priority" value={form.priority} onChange={handleChange}>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </label>
+            <label>
+                Due date
+                <input type="date" name="dueDate" value={form.dueDate} onChange={handleChange} />
+                {errors.dueDate && <span className="error" role="alert">{errors.dueDate}</span>}
+            </label>
+        </div>
+
+        <div className="row">
+            <button type="submit" className="primary">
+                {editingTask ? 'Save changes' : 'Add task'}
+            </button>
+            {editingTask && (
+                <button type="button" onClick={onCancel}>Cancel</button>
+            )}
+        </div>
     </form>
  )
 }
